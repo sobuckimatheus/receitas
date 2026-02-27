@@ -316,42 +316,7 @@ if(e)
 		</style>
 
 	
-	<!-- Script de Countdown Dinâmico (30 minutos) -->
-	<script>
-	document.addEventListener('DOMContentLoaded', function() {
-		// Função para atualizar contadores evergreen
-		function initEvergreenCountdowns() {
-			// Calcular data/hora 30 minutos no futuro
-			var now = new Date();
-			var futureTime = new Date(now.getTime() + (30 * 60 * 1000)); // 30 minutos
-			
-			var year = futureTime.getFullYear();
-			var month = String(futureTime.getMonth() + 1).padStart(2, '0');
-			var day = String(futureTime.getDate()).padStart(2, '0');
-			var hours = String(futureTime.getHours()).padStart(2, '0');
-			var minutes = String(futureTime.getMinutes()).padStart(2, '0');
-			
-			var dateString = year + '-' + month + '-' + day;
-			
-			// Atualizar todos os contadores evergreen
-			var countdowns = document.querySelectorAll('.tve-countdown-evergreen');
-			countdowns.forEach(function(countdown) {
-				countdown.setAttribute('data-date', dateString);
-				countdown.setAttribute('data-hour', hours);
-				countdown.setAttribute('data-min', minutes);
-				
-				// Forçar reinicialização do contador
-				if (window.TCB_Front && window.TCB_Front.countdown) {
-					window.TCB_Front.countdown.init(countdown);
-				}
-			});
-		}
-		
-		// Inicializar contadores
-		initEvergreenCountdowns();
-	});
-	</script>
-	<!-- End Script de Countdown Dinâmico -->
+	
 	/* Fix para setas do carrossel */
 	<style type="text/css">
 	/* Esconder qualquer texto de arrow que apareça */
@@ -502,6 +467,82 @@ if(e)
 		}, 500);
 	});
 	</script>
+
+
+	<!-- Script de Countdown Funcional -->
+	<script>
+	(function() {
+		function initCountdowns() {
+			// Calcular 30 minutos no futuro
+			var now = new Date();
+			var future = new Date(now.getTime() + (30 * 60 * 1000));
+			
+			var year = future.getFullYear();
+			var month = String(future.getMonth() + 1).padStart(2, '0');
+			var day = String(future.getDate()).padStart(2, '0');
+			var hours = String(future.getHours()).padStart(2, '0');
+			var minutes = String(future.getMinutes()).padStart(2, '0');
+			var seconds = String(future.getSeconds()).padStart(2, '0');
+			
+			var dateStr = year + '-' + month + '-' + day;
+			
+			// Atualizar todos os countdowns
+			var countdowns = document.querySelectorAll('.tve-countdown-evergreen');
+			
+			countdowns.forEach(function(countdown) {
+				countdown.setAttribute('data-date', dateStr);
+				countdown.setAttribute('data-hour', hours);
+				countdown.setAttribute('data-min', minutes);
+				countdown.setAttribute('data-sec', seconds);
+				countdown.classList.remove('show-expired-cd');
+				
+				// Reinicializar o countdown se o TCB_Front estiver disponível
+				if (window.TCB_Front && window.TCB_Front.countdown) {
+					try {
+						window.TCB_Front.countdown.init(countdown);
+					} catch(e) {
+						console.log('Erro ao iniciar countdown:', e);
+					}
+				}
+			});
+			
+			// Fix do layout dos dígitos
+			setTimeout(function() {
+				var digitContainers = document.querySelectorAll('.t-digits, .t-digit-part');
+				digitContainers.forEach(function(el) {
+					el.style.display = 'flex';
+					el.style.flexDirection = 'row';
+					el.style.alignItems = 'center';
+				});
+				
+				var digits = document.querySelectorAll('.t-slide-part-digit');
+				digits.forEach(function(el) {
+					el.style.display = 'inline-block';
+					el.style.float = 'left';
+					el.style.marginRight = '2px';
+				});
+				
+				var tiles = document.querySelectorAll('.tve-countdown-tile');
+				tiles.forEach(function(el) {
+					el.style.display = 'inline-block';
+					el.style.verticalAlign = 'top';
+					el.style.margin = '0 10px';
+				});
+			}, 1000);
+		}
+		
+		// Executar quando a página carregar
+		if (document.readyState === 'loading') {
+			document.addEventListener('DOMContentLoaded', initCountdowns);
+		} else {
+			initCountdowns();
+		}
+		
+		// Tentar novamente após 2 segundos caso o Thrive ainda esteja carregando
+		setTimeout(initCountdowns, 2000);
+	})();
+	</script>
+	<!-- End Script de Countdown Funcional -->
 
 </head>
 		<body class="wp-singular page-template-default page page-id-1286 wp-theme-Divi tve_lp" style="" data-css="tve-u-15e09c94f7d"> 				<div class="wrp cnt bSe" style="display: none">
