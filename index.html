@@ -315,7 +315,45 @@ if(e)
             }
 		</style>
 
-	</head>
+	
+	<!-- Script de Countdown Dinâmico (30 minutos) -->
+	<script>
+	document.addEventListener('DOMContentLoaded', function() {
+		// Função para atualizar contadores evergreen
+		function initEvergreenCountdowns() {
+			// Calcular data/hora 30 minutos no futuro
+			var now = new Date();
+			var futureTime = new Date(now.getTime() + (30 * 60 * 1000)); // 30 minutos
+			
+			var year = futureTime.getFullYear();
+			var month = String(futureTime.getMonth() + 1).padStart(2, '0');
+			var day = String(futureTime.getDate()).padStart(2, '0');
+			var hours = String(futureTime.getHours()).padStart(2, '0');
+			var minutes = String(futureTime.getMinutes()).padStart(2, '0');
+			
+			var dateString = year + '-' + month + '-' + day;
+			
+			// Atualizar todos os contadores evergreen
+			var countdowns = document.querySelectorAll('.tve-countdown-evergreen');
+			countdowns.forEach(function(countdown) {
+				countdown.setAttribute('data-date', dateString);
+				countdown.setAttribute('data-hour', hours);
+				countdown.setAttribute('data-min', minutes);
+				
+				// Forçar reinicialização do contador
+				if (window.TCB_Front && window.TCB_Front.countdown) {
+					window.TCB_Front.countdown.init(countdown);
+				}
+			});
+		}
+		
+		// Inicializar contadores
+		initEvergreenCountdowns();
+	});
+	</script>
+	<!-- End Script de Countdown Dinâmico -->
+
+</head>
 		<body class="wp-singular page-template-default page page-id-1286 wp-theme-Divi tve_lp" style="" data-css="tve-u-15e09c94f7d"> 				<div class="wrp cnt bSe" style="display: none">
 			<div class="awr"></div>
 		</div>
