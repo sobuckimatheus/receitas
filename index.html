@@ -429,6 +429,30 @@ if(e)
 	.flip-clock__card {
 		display: inline-block !important;
 	}
+	
+	/* Fix específico para contador slideDown (evergreen_1215) */
+	[data-id="evergreen_1215"] .tve-countdown-digit,
+	[data-id="evergreen_1215"] .t-digit-part,
+	[data-id="evergreen_1215"] .t-digits,
+	[data-id="evergreen_1215"] .t-slide-part-digit {
+		display: inline-block !important;
+		vertical-align: middle !important;
+	}
+	
+	[data-id="evergreen_1215"] .t-digits {
+		white-space: nowrap !important;
+	}
+	
+	[data-id="evergreen_1215"] .t-slide-part-digit {
+		margin: 0 1px !important;
+	}
+	
+	[data-id="evergreen_1215"] .tve-countdown-tile {
+		display: inline-block !important;
+		vertical-align: top !important;
+		margin: 0 5px !important;
+	}
+
 
 
 	</style>
