@@ -458,6 +458,51 @@ if(e)
 	</style>
 
 
+
+	<!-- Fix forte para contador -->
+	<style>
+	/* FORÇA layout horizontal dos dígitos */
+	.tve-countdown .t-digits,
+	.tve-countdown .t-digit-part {
+		display: inline-flex !important;
+		flex-direction: row !important;
+	}
+	
+	.tve-countdown .t-slide-part-digit {
+		display: inline-block !important;
+		float: left !important;
+	}
+	
+	.tve-countdown-digit {
+		display: inline-block !important;
+		float: none !important;
+	}
+	
+	.tve-countdown-tile {
+		display: inline-block !important;
+		vertical-align: top !important;
+	}
+	</style>
+	
+	<script>
+	// Forçar layout via JavaScript
+	document.addEventListener('DOMContentLoaded', function() {
+		setTimeout(function() {
+			var digits = document.querySelectorAll('.t-digits, .t-digit-part');
+			digits.forEach(function(el) {
+				el.style.display = 'inline-flex';
+				el.style.flexDirection = 'row';
+			});
+			
+			var slideDigits = document.querySelectorAll('.t-slide-part-digit');
+			slideDigits.forEach(function(el) {
+				el.style.display = 'inline-block';
+				el.style.cssFloat = 'left';
+			});
+		}, 500);
+	});
+	</script>
+
 </head>
 		<body class="wp-singular page-template-default page page-id-1286 wp-theme-Divi tve_lp" style="" data-css="tve-u-15e09c94f7d"> 				<div class="wrp cnt bSe" style="display: none">
 			<div class="awr"></div>
